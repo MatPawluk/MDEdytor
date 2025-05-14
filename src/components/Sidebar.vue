@@ -4,6 +4,25 @@
         <h1 class="logo">MARKDOWN</h1>
         <div class="document-count">Dokumenty ({{ documents.length }})</div>
       </div>
+      
+      <!-- Nawigacja -->
+      <nav class="sidebar-nav">
+        <router-link to="/" class="nav-item" active-class="nav-active">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h2" 
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Edytor
+        </router-link>
+        <router-link to="/cheatsheet" class="nav-item" active-class="nav-active">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" 
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Ściągawka
+        </router-link>
+      </nav>
+      
       <button class="new-document-btn" @click="$emit('createDocument')">+ Nowy dokument</button>
       <div class="documents-list">
         <div
@@ -59,6 +78,8 @@
   </template>
   
   <script setup lang="ts">
+  import { RouterLink } from 'vue-router'
+  
   interface Document {
     id: string
     name: string
@@ -129,6 +150,35 @@
     font-size: 14px;
     text-transform: uppercase;
     letter-spacing: 1px;
+  }
+  
+  /* Style dla nawigacji */
+  .sidebar-nav {
+    padding: 0 20px;
+    margin-bottom: 20px;
+  }
+  
+  .nav-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    color: var(--text-light);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border-color);
+    transition: color 0.2s;
+  }
+  
+  .nav-item:hover {
+    color: var(--accent-color);
+  }
+  
+  .nav-item svg {
+    margin-right: 10px;
+  }
+  
+  .nav-active {
+    color: var(--accent-color);
+    font-weight: 500;
   }
   
   .new-document-btn {

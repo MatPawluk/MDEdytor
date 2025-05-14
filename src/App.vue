@@ -8,38 +8,14 @@
       @createDocument="store.createDocument"
       @toggleSidebar="store.toggleSidebar"
     />
-    <main class="main" :class="{ 'sidebar-hidden': !store.sidebarVisible }">
-      <DocumentHeader
-        :document="store.activeDocument"
-        :sidebarVisible="store.sidebarVisible"
-        @toggleSidebar="store.toggleSidebar"
-        @saveDocument="store.updateDocumentName"
-        @deleteDocument="store.deleteDocument"
-        @togglePreview="store.togglePreviewMode"
-        @toggleDarkMode="store.toggleDarkMode"
-      />
-      <div class="editor-container" v-if="!store.fullPreviewMode">
-        <Editor
-          :modelValue="store.activeDocument.content"
-          :previewVisible="store.previewVisible"
-          @update:modelValue="store.updateDocumentContent"
-        />
-        <Preview :markdown="store.activeDocument.content" v-if="store.previewVisible" />
-      </div>
-      <div class="full-preview" v-else>
-        <Preview :markdown="store.activeDocument.content" :fullScreen="true" />
-      </div>
-    </main>
+    <router-view class="main-content" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted } from 'vue'; // Dodałem brakujący import onUnmounted
+import { onMounted, onUnmounted } from 'vue';
 import { useDocumentsStore } from './stores/documents';
 import Sidebar from './components/Sidebar.vue';
-import DocumentHeader from './components/DocumentHeader.vue';
-import Editor from './components/Editor.vue';
-import Preview from './components/Preview.vue';
 
 const store = useDocumentsStore();
 
@@ -110,44 +86,15 @@ body {
   position: relative;
 }
 
-.main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  transition: margin-left 0.3s ease;
-}
-
-@media (min-width: 769px) {
-  .main {
-    margin-left: 0;
-  }
-  
-  .main.sidebar-hidden {
-    margin-left: 0;
-  }
-}
-
-@media (max-width: 768px) {
-  .main {
-    width: 100%;
-    margin-left: 0;
-  }
-}
-
-.editor-container {
-  display: flex;
-  flex: 1;
-  overflow: hidden;
-}
-
-.full-preview {
+.main-content {
   flex: 1;
   overflow: auto;
 }
 
 @media (max-width: 768px) {
-  .editor-container {
-    flex-direction: column;
+  .main-content {
+    width: 100%;
+    margin-left: 0;
   }
 }
 </style>

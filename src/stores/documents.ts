@@ -1,4 +1,6 @@
 import { defineStore } from 'pinia'
+import { marked } from 'marked';
+import DOMPurify from 'dompurify';
 
 interface Document {
   id: string
@@ -35,6 +37,15 @@ export const useDocumentsStore = defineStore('documents', {
         }
       )
     },
+    
+    // Nowy getter do renderowania HTML - bez użycia marked
+    renderedActiveDocument: (state): string => {
+      const doc = state.documents.find((doc) => doc.id === state.activeDocId)
+      if (!doc) return ''
+      
+      // Zwracamy tylko treść - formatowanie zostanie wykonane przez komponent Preview
+      return doc.content
+    }
   },
 
   actions: {
@@ -119,6 +130,7 @@ Markdown to lekki język znaczników, którego możesz użyć do dodania element
 - Twórz nagłówki, akapity, linki, cytaty blokowe, wstawki kodu, bloki kodu i listy
 - Nazwij i zapisz dokument, aby mieć do niego dostęp później
 - Wybierz między jasnym a ciemnym motywem, w zależności od preferencji
+- Eksportuj swoje dokumenty do PDF
 
 > To jest przykład cytatu blokowego. Jeśli chcesz dowiedzieć się więcej o składni markdown, możesz odwiedzić tę [ściągawkę markdown](https://www.markdownguide.org/cheat-sheet/).
 
