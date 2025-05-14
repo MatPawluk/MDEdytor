@@ -4,6 +4,11 @@ Intuicyjny edytor Markdown z podglądem na żywo, stworzony przy użyciu Vue 3, 
 
 ![Screenshot edytora](/screenshot.png)
 
+Live:
+
+[MDEdytor LIVE](https://mdedytor.netlify.app/)
+
+
 ## Funkcje
 
 - **Edycja i podgląd w czasie rzeczywistym** - natychmiastowy podgląd wprowadzanych zmian
