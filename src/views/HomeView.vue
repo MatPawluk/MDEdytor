@@ -1,9 +1,16 @@
+<!-- src/views/HomeView.vue -->
+<template>
+  <div class="home">
+    <RouterView />
+  </div>
+</template>
+
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+// HomeView przekazuje do RouterView
 </script>
 
-<template>
-  <main>
-    <TheWelcome />
-  </main>
-</template>
+<style>
+.home {
+  height: 100%;
+}
+</style>
