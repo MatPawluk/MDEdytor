@@ -28,15 +28,34 @@
           </div>
         </div>
       </div>
-      <div class="sidebar-toggle-mobile" @click="$emit('toggleSidebar')" v-if="!isVisible">
-        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M18 3H6C4.34 3 3 4.34 3 6v12c0 1.66 1.34 3 3 3h12c1.66 0 3-1.34 3-3V6c0-1.66-1.34-3-3-3zm-1 7.5h-4v4h-2v-4H7v-2h4v-4h2v4h4v2z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
     </aside>
+    
+    <!-- Przycisk toggle dla urządzeń mobilnych -->
+    <div class="sidebar-toggle-mobile" @click="$emit('toggleSidebar')">
+      <svg v-if="!isVisible" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
+          fill="currentColor"
+        />
+      </svg>
+      <svg v-else width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+          fill="currentColor"
+        />
+      </svg>
+    </div>
+    
+    <!-- Przycisk toggle dla większych ekranów (kropki) -->
+    <button class="sidebar-toggle-desktop" @click="$emit('toggleSidebar')" v-if="!isVisible">
+      <svg width="23" height="13" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M1.138.04c.344-.056.748.083 1.212.417.2.145.374.323.52.534.156.223.262.465.318.726.066.31.044.608-.065.897-.11.29-.295.553-.553.788-.305.278-.7.417-1.182.417-.131 0-.262-.015-.393-.046a2.13 2.13 0 01-.524-.185 1.107 1.107 0 01-.393-.342A1.002 1.002 0 010 2.5c0-.361.118-.686.353-.977.234-.29.55-.483.946-.58.055-.026.095-.043.118-.051.023-.008.037-.012.043-.012l.09-.011.047-.017c.068.002.083.003.047.003zm5.077 0c.344-.056.748.083 1.212.417.2.145.374.323.52.534.156.223.262.465.318.726.066.31.044.608-.065.897-.11.29-.295.553-.553.788-.305.278-.7.417-1.182.417-.131 0-.262-.015-.393-.046a2.13 2.13 0 01-.524-.185 1.107 1.107 0 01-.393-.342A1.002 1.002 0 015 2.5c0-.361.118-.686.353-.977.234-.29.55-.483.946-.58.055-.026.095-.043.118-.051.023-.008.037-.012.043-.012l.09-.011.047-.017c.068.002.083.003.047.003zm5.077 0c.344-.056.748.083 1.212.417.2.145.374.323.52.534.156.223.262.465.318.726.066.31.044.608-.065.897-.11.29-.295.553-.553.788-.305.278-.7.417-1.182.417-.131 0-.262-.015-.393-.046a2.13 2.13 0 01-.524-.185 1.107 1.107 0 01-.393-.342A1.002 1.002 0 0110 2.5c0-.361.118-.686.353-.977.234-.29.55-.483.946-.58.055-.026.095-.043.118-.051.023-.008.037-.012.043-.012l.09-.011.047-.017c.068.002.083.003.047.003zm5.077 0c.344-.056.748.083 1.212.417.2.145.374.323.52.534.156.223.262.465.318.726.066.31.044.608-.065.897-.11.29-.295.553-.553.788-.305.278-.7.417-1.182.417-.131 0-.262-.015-.393-.046a2.13 2.13 0 01-.524-.185 1.107 1.107 0 01-.393-.342A1.002 1.002 0 0115 2.5c0-.361.118-.686.353-.977.234-.29.55-.483.946-.58.055-.026.095-.043.118-.051.023-.008.037-.012.043-.012l.09-.011.047-.017c.068.002.083.003.047.003zm5.077 0c.344-.056.748.083 1.212.417.2.145.374.323.52.534.156.223.262.465.318.726.066.31.044.608-.065.897-.11.29-.295.553-.553.788-.305.278-.7.417-1.182.417-.131 0-.262-.015-.393-.046a2.13 2.13 0 01-.524-.185 1.107 1.107 0 01-.393-.342A1.002 1.002 0 0120 2.5c0-.361.118-.686.353-.977.234-.29.55-.483.946-.58.055-.026.095-.043.118-.051.023-.008.037-.012.043-.012l.09-.011.047-.017c.068.002.083.003.047.003z"
+          fill="currentColor"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </button>
   </template>
   
   <script setup lang="ts">
@@ -167,13 +186,9 @@
     color: var(--text-color);
   }
   
+  /* Styl przycisku toggle dla urządzeń mobilnych */
   .sidebar-toggle-mobile {
     display: none;
-    padding: 10px;
-    text-align: center;
-    background-color: var(--accent-color);
-    color: #fff;
-    cursor: pointer;
   }
   
   @media (max-width: 768px) {
@@ -188,8 +203,35 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      background-color: var(--accent-color);
+      color: #fff;
+      border: none;
+      cursor: pointer;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
       z-index: 20;
+    }
+  }
+  
+  /* Styl przycisku toggle dla większych ekranów */
+  .sidebar-toggle-desktop {
+    display: none;
+    position: fixed;
+    left: 20px;
+    top: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text-light);
+    z-index: 5;
+  }
+  
+  .sidebar-toggle-desktop:hover {
+    color: var(--accent-color);
+  }
+  
+  @media (min-width: 769px) {
+    .sidebar-toggle-desktop {
+      display: block;
     }
   }
   </style>
