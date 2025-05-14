@@ -39,53 +39,66 @@ export const useDocumentsStore = defineStore('documents', {
 
   actions: {
     loadDocuments() {
-      // Wczytaj dokumenty z localStorage
-      const savedDocs = localStorage.getItem('markdown-documents')
-      if (savedDocs) {
-        this.documents = JSON.parse(savedDocs)
-      }
+      try {
+        // Wczytaj dokumenty z localStorage
+        const savedDocs = localStorage.getItem('markdown-documents')
+        if (savedDocs) {
+          this.documents = JSON.parse(savedDocs)
+        }
 
-      // Wczytaj aktywny dokument
-      const savedActiveId = localStorage.getItem('active-document-id')
-      if (savedActiveId && this.documents.some((doc) => doc.id === savedActiveId)) {
-        this.activeDocId = savedActiveId
-      } else if (this.documents.length > 0) {
-        this.activeDocId = this.documents[0].id
-      } else {
-        // Utwórz pierwszy dokument, jeśli nie ma zapisanych
+        // Wczytaj aktywny dokument
+        const savedActiveId = localStorage.getItem('active-document-id')
+        if (savedActiveId && this.documents.some((doc) => doc.id === savedActiveId)) {
+          this.activeDocId = savedActiveId
+        } else if (this.documents.length > 0) {
+          this.activeDocId = this.documents[0].id
+        } else {
+          // Utwórz pierwszy dokument, jeśli nie ma zapisanych
+          this.createDocument()
+          return // Kończymy tu, bo createDocument już zapisuje do localStorage
+        }
+
+        // Wczytaj ustawienia UI
+        const savedDarkMode = localStorage.getItem('dark-mode')
+        if (savedDarkMode) {
+          this.darkMode = JSON.parse(savedDarkMode)
+        }
+
+        const savedSidebarVisible = localStorage.getItem('sidebar-visible')
+        if (savedSidebarVisible) {
+          this.sidebarVisible = JSON.parse(savedSidebarVisible)
+        }
+
+        const savedPreviewVisible = localStorage.getItem('preview-visible')
+        if (savedPreviewVisible) {
+          this.previewVisible = JSON.parse(savedPreviewVisible)
+        }
+      } catch (error) {
+        console.error('Błąd podczas ładowania dokumentów:', error)
+        // W przypadku błędu, zainicjujmy aplikację z domyślnymi ustawieniami
         this.createDocument()
-      }
-
-      // Wczytaj ustawienia UI
-      const savedDarkMode = localStorage.getItem('dark-mode')
-      if (savedDarkMode) {
-        this.darkMode = JSON.parse(savedDarkMode)
-      }
-
-      const savedSidebarVisible = localStorage.getItem('sidebar-visible')
-      if (savedSidebarVisible) {
-        this.sidebarVisible = JSON.parse(savedSidebarVisible)
-      }
-
-      const savedPreviewVisible = localStorage.getItem('preview-visible')
-      if (savedPreviewVisible) {
-        this.previewVisible = JSON.parse(savedPreviewVisible)
       }
     },
 
     saveToLocalStorage() {
-      // Zapisz dokumenty
-      localStorage.setItem('markdown-documents', JSON.stringify(this.documents))
+      try {
+        // Zapisz dokumenty
+        localStorage.setItem('markdown-documents', JSON.stringify(this.documents))
 
-      // Zapisz aktywny dokument
-      if (this.activeDocId) {
-        localStorage.setItem('active-document-id', this.activeDocId)
+        // Zapisz aktywny dokument
+        if (this.activeDocId) {
+          localStorage.setItem('active-document-id', this.activeDocId)
+        }
+
+        // Zapisz ustawienia UI
+        localStorage.setItem('dark-mode', JSON.stringify(this.darkMode))
+        localStorage.setItem('sidebar-visible', JSON.stringify(this.sidebarVisible))
+        localStorage.setItem('preview-visible', JSON.stringify(this.previewVisible))
+      } catch (error) {
+        console.error('Błąd podczas zapisywania do localStorage:', error)
+        // Wyświetl jakąś informację dla użytkownika o problemie z zapisem
+        alert('Wystąpił problem z zapisem danych. Upewnij się, że masz włączoną obsługę cookies i localStorage w przeglądarce.')
       }
-
-      // Zapisz ustawienia UI
-      localStorage.setItem('dark-mode', JSON.stringify(this.darkMode))
-      localStorage.setItem('sidebar-visible', JSON.stringify(this.sidebarVisible))
-      localStorage.setItem('preview-visible', JSON.stringify(this.previewVisible))
     },
 
     createDocument() {

@@ -34,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, onUnmounted } from 'vue'; // Dodałem brakujący import onUnmounted
 import { useDocumentsStore } from './stores/documents';
 import Sidebar from './components/Sidebar.vue';
 import DocumentHeader from './components/DocumentHeader.vue';
