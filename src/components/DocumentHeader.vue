@@ -142,6 +142,12 @@ watch(
   color: var(--accent-color);
 }
 
+@media screen and (min-width: 768px) {
+  .sidebar-toggle {
+    display: none;
+  }
+    
+}
 .document-name {
   display: flex;
   align-items: center;
