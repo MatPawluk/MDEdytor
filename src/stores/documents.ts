@@ -90,9 +90,9 @@ export const useDocumentsStore = defineStore('documents', {
 
     createDocument() {
       const newDoc: Document = {
-  id: Date.now().toString(),
-  name: 'czesc.md',
-  content: `# Witaj w edytorze Markdown
+        id: Date.now().toString(),
+        name: 'welcome.md',
+        content: `# Witaj w edytorze Markdown
 
 Markdown to lekki język znaczników, którego możesz użyć do dodania elementów formatowania do zwykłych dokumentów tekstowych.
 
@@ -127,7 +127,7 @@ Ten edytor markdown pozwala na wstawki kodu w linii, takie jak: \`<p>Jestem w li
 </main>
 \`\`\`
 `
-}
+      }
 
       this.documents.push(newDoc)
       this.activeDocId = newDoc.id
@@ -178,6 +178,11 @@ Ten edytor markdown pozwala na wstawki kodu w linii, takie jak: \`<p>Jestem w li
     },
 
     togglePreviewMode() {
+      // Zapisz aktualną zawartość dokumentu przed przełączaniem trybu
+      if (this.activeDocument.id) {
+        this.saveToLocalStorage()
+      }
+
       if (this.fullPreviewMode) {
         // Wyjdź z trybu pełnoekranowego
         this.fullPreviewMode = false
