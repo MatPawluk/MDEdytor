@@ -90,44 +90,44 @@ export const useDocumentsStore = defineStore('documents', {
 
     createDocument() {
       const newDoc: Document = {
-        id: Date.now().toString(),
-        name: 'welcome.md',
-        content: `# Welcome to Markdown
+  id: Date.now().toString(),
+  name: 'czesc.md',
+  content: `# Witaj w edytorze Markdown
 
-Markdown is a lightweight markup language that you can use to add formatting elements to plaintext text documents.
+Markdown to lekki język znaczników, którego możesz użyć do dodania elementów formatowania do zwykłych dokumentów tekstowych.
 
-## How to use this?
+## Jak z tego korzystać?
 
-1. Write markdown in the markdown editor window
-2. See the rendered markdown in the preview window
+1. Napisz tekst w formacie markdown w oknie edytora
+2. Zobacz wyrenderowany markdown w oknie podglądu
 
-### Features
+### Funkcje
 
-- Create headings, paragraphs, links, blockquotes, inline-code, code blocks, and lists
-- Name and save the document to access again later
-- Choose between Light or Dark mode depending on your preference
+- Twórz nagłówki, akapity, linki, cytaty blokowe, wstawki kodu, bloki kodu i listy
+- Nazwij i zapisz dokument, aby mieć do niego dostęp później
+- Wybierz między jasnym a ciemnym motywem, w zależności od preferencji
 
-> This is an example of a blockquote. If you would like to learn more about markdown syntax, you can visit this [markdown cheatsheet](https://www.markdownguide.org/cheat-sheet/).
+> To jest przykład cytatu blokowego. Jeśli chcesz dowiedzieć się więcej o składni markdown, możesz odwiedzić tę [ściągawkę markdown](https://www.markdownguide.org/cheat-sheet/).
 
-#### Headings
+#### Nagłówki
 
-To create a heading, add the hash sign (#) before the heading. The number of number signs you use should correspond to the heading level. You'll see in this guide that we've used all six heading levels (not necessarily in the correct way you should use headings!) to illustrate how they should look.
+Aby utworzyć nagłówek, dodaj znak hash (#) przed tekstem nagłówka. Liczba znaków hash powinna odpowiadać poziomowi nagłówka. W tym przewodniku użyliśmy wszystkich sześciu poziomów nagłówków (niekoniecznie w poprawny sposób, w jaki powinieneś używać nagłówków!), aby zilustrować, jak powinny wyglądać.
 
-##### Lists
+##### Listy
 
-You can see examples of ordered and unordered lists above.
+Powyżej możesz zobaczyć przykłady list numerowanych i nienumerowanych.
 
-###### Code Blocks
+###### Bloki kodu
 
-This markdown editor allows for inline-code snippets, like this: \`<p>I'm inline</p>\`. It also allows for larger code blocks like this:
+Ten edytor markdown pozwala na wstawki kodu w linii, takie jak: \`<p>Jestem w linii</p>\`. Umożliwia również tworzenie większych bloków kodu, takich jak:
 
 \`\`\`
 <main>
-  <h1>This is a larger code block</h1>
+  <h1>To jest większy blok kodu</h1>
 </main>
 \`\`\`
-`,
-      }
+`
+}
 
       this.documents.push(newDoc)
       this.activeDocId = newDoc.id

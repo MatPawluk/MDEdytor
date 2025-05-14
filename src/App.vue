@@ -45,6 +45,24 @@ const store = useDocumentsStore();
 
 onMounted(() => {
   store.loadDocuments();
+  
+  // Obsługa responsywności - ukryj sidebar automatycznie na mniejszych ekranach
+  const handleResize = () => {
+    if (window.innerWidth <= 768 && store.sidebarVisible) {
+      store.sidebarVisible = false;
+    }
+  };
+  
+  // Dodaj listener na zmianę rozmiaru okna
+  window.addEventListener('resize', handleResize);
+  
+  // Sprawdź początkowy rozmiar ekranu
+  handleResize();
+  
+  // Usuń listener przy odmontowaniu komponentu
+  onUnmounted(() => {
+    window.removeEventListener('resize', handleResize);
+  });
 });
 </script>
 
@@ -81,6 +99,7 @@ body {
   font-family: 'Roboto', 'Roboto Mono', monospace, sans-serif;
   font-size: 14px;
   line-height: 1.6;
+  overflow: hidden;
 }
 
 .app {
@@ -88,6 +107,7 @@ body {
   height: 100vh;
   background-color: var(--bg-main);
   color: var(--text-color);
+  position: relative;
 }
 
 .main {
@@ -95,8 +115,21 @@ body {
   display: flex;
   flex-direction: column;
   transition: margin-left 0.3s ease;
+}
 
-  &.sidebar-hidden {
+@media (min-width: 769px) {
+  .main {
+    margin-left: 0;
+  }
+  
+  .main.sidebar-hidden {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .main {
+    width: 100%;
     margin-left: 0;
   }
 }
